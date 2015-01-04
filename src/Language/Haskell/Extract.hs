@@ -18,7 +18,7 @@ extractAllFunctions pattern =
        -- is used on Japanese Windows environment).
        -- To avoid "hGetContents: invalid argument (invalid byte sequence)" error
        -- on such cases, we explicitly specify file encoding as UTF-8.
-       hSetEncoding h utf8
+       hSetEncoding h =<< mkTextEncoding "UTF-8//IGNORE"
        hGetContents h
      return $ nub $ filter (=~pattern) $ map fst $ concat $ map lex $ lines file
 
